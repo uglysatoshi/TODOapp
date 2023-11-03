@@ -58,9 +58,15 @@ def update_todo(db_item_id):
     else:
         form = TodoForm()
         todo = db.todo_flask.find_one_or_404({"_id": ObjectId(db_item_id)})
-        print(todo)
         form.name.data = todo.get("name", None)
         form.description.data = todo.get("description", None)
         form.completed.data = todo.get("completed", None)
 
     return render_template("add_todo.html", form=form)
+
+
+@app.route("/delete/<db_item_id>")
+def delete_todo(db_item_id):
+    db.todo_flask.find_one_and_delete({"_id": ObjectId(db_item_id)})
+    flash("Todo is successfully deleted", "success")
+    return redirect("/")

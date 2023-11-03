@@ -14,6 +14,8 @@
 
                 <a href="{{ url_for('update_todo', db_item_id = todo._id) }}"
                    class="btn btn-outline-dark btn-sm">Update</a>
+                <a href="{{ url_for('delete_todo', db_item_id = todo._id) }}"
+                   class="btn btn-outline-danger btn-sm">Delete</a>
             </div>
         </div>
     {% endfor %}
