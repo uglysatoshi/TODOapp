@@ -12,7 +12,7 @@
                 <p class="card-text text-muted">{{ todo.date_created }}</p>
                 <p class="card-text">{{ todo.description }}</p>
 
-                <a href="{{ url_for('update_todo', id = todo._id) }}"
+                <a href="{{ url_for('update_todo', db_item_id = todo._id) }}"
                    class="btn btn-outline-dark btn-sm">Update</a>
             </div>
         </div>

@@ -37,15 +37,15 @@ def add_todo():
         return render_template("add_todo.html", form=form)
 
 
-@app.route("/update_todo/<id>", methods=["POST", "GET"])
-def update_todo(id):
+@app.route("/update_todo/<db_item_id>", methods=["POST", "GET"])
+def update_todo(db_item_id):
     if request.method == "POST":
         form = TodoForm(request.form)
         todo_name = form.name.data
         todo_description = form.description.data
         todo_completed = form.completed.data
 
-        db.todo_flask.find_one_and_update({"_id": ObjectId(id)}, {"$set": {
+        db.todo_flask.find_one_and_update({"_id": ObjectId(db_item_id)}, {"$set": {
             "name": todo_name,
             "description": todo_description,
             "completed": todo_completed,
@@ -57,7 +57,7 @@ def update_todo(id):
 
     else:
         form = TodoForm()
-        todo = db.todo_flask.find_one_or_404({"_id": ObjectId(id)})
+        todo = db.todo_flask.find_one_or_404({"_id": ObjectId(db_item_id)})
         print(todo)
         form.name.data = todo.get("name", None)
         form.description.data = todo.get("description", None)
