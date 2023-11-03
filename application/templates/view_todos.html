@@ -1,4 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h3>Hello World</h3>
-{% endblock  %}
+<div>
+    {% for todo in todos %}
+        <div class="card p-1 m-3">
+            <div class="card-body">
+                {% if todo.completed == "True" %}
+                <h5 class="card-title"><del>{{ todo.name }}</del></h5>
+                {% else %}
+                <h5 class="card-title">{{ todo.name }}</h5>
+                {% endif %}
+                <p class="card-text text-muted">{{ todo.date_created }}</p>
+                <p class="card-text">{{ todo.description }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

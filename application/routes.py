@@ -5,8 +5,14 @@ from datetime import datetime
 
 
 @app.route("/")
-def index():
-    return render_template("view_todos.html")
+def get_todos():
+    todos = []
+    for todo in db.todo_flask.find().sort("date_created", -1):
+        todo["_id"] = str(todo["_id"])
+        todo["date_created"] = todo["date_created"].strftime("%d.%b.%Y %H:%M:%S")
+        todos.append(todo)
+
+    return render_template("view_todos.html", todos=todos)
 
 
 @app.route("/add_todo", methods=["POST", "GET"])
@@ -21,7 +27,7 @@ def add_todo():
             "name": todo_name,
             "description": todo_description,
             "completed": todo_completed,
-            "date_completed": datetime.now()
+            "date_created": datetime.now()
         })
         flash("Your TODO is successfully inserted", "success")
         return redirect("/")
