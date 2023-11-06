@@ -1,0 +1,6 @@
+flask
+flask-wtf
+bson
+datetime
+WTForms
+pymongo
